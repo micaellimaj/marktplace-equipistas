@@ -1,13 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation" // 👈 Importado para fazer o redirecionamento
-import { useAuth } from "@/contexts/AuthContext" // 👈 Importado para checar a autenticação
+import { useRouter } from "next/navigation" 
+import { useAuth } from "@/contexts/AuthContext" 
 import { Header } from "@/components/marketplace/header"
 import { SidebarFilters, type ProductCategory } from "@/components/marketplace/sidebar-filters"
 import { ProductGrid } from "@/components/marketplace/product-grid"
+import { Button } from "@/components/ui/button"
 import { productsService } from "@/services/productsService"
 import { addressesService } from "@/services/addressesService"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 export interface MappedProduct {
   id: string
@@ -31,7 +33,6 @@ export default function MarketplacePage() {
   const { isAuthenticated, user, loading: authLoading } = useAuth()
   const router = useRouter()
 
-  // 1. Adicione este estado para controlar se a página já carregou no navegador
   const [mounted, setMounted] = useState(false)
 
   const [activeCategory, setActiveCategory] = useState<ProductCategory>("TODAS")
@@ -42,12 +43,14 @@ export default function MarketplacePage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // 2. Garante que o código só execute no cliente após o primeiro render
+  // Estados novos para Paginação
+  const [currentPage, setCurrentPage] = useState(1)
+  const ITEMS_PER_PAGE = 15
+
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // 3. Efeito responsável por proteger a rota
   useEffect(() => {
     if (mounted && !authLoading && !isAuthenticated) {
       router.push("/login")
@@ -128,6 +131,10 @@ export default function MarketplacePage() {
     }
   }, [mounted, isAuthenticated, authLoading])
 
+  // Volta para a página 1 se o usuário mudar de categoria, preço ou fizer uma nova busca
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [activeCategory, priceRange, searchTerm])
 
   if (!mounted || authLoading) {
     return (
@@ -147,6 +154,7 @@ export default function MarketplacePage() {
 
   if (!isAuthenticated) return null
 
+  // Filtros aplicados
   const filteredProducts = products.filter((product) => {
     const matchesCategory = activeCategory === "TODAS" || product.category.toUpperCase() === activeCategory.toUpperCase()
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1]
@@ -164,6 +172,12 @@ export default function MarketplacePage() {
     return matchesCategory && matchesPrice && matchesSearch
   })
 
+  // Lógica da Paginação
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE
+  const currentProducts = filteredProducts.slice(indexOfFirstItem, indexOfLastItem)
+
   return (
     <div className="min-h-screen bg-background p-4 md:p-6">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -178,7 +192,7 @@ export default function MarketplacePage() {
                   Modo Administrador: Olá, <span className="text-blue-600 dark:text-blue-400">{user.nome}</span>! 🛡️
                 </h1>
                 <p className="text-muted-foreground mt-1 text-sm">
-                  Painel de supervisão ativo. Monitore os produtos publicados, verifique os novos cadastros e garanta a integridade da plataforma Entre Equipistas.
+                  Painel de supervisão active. Monitore os produtos publicados, verifique os novos cadastros e garanta a integridade da plataforma Entre Equipistas.
                 </p>
               </>
             ) : (
@@ -202,13 +216,45 @@ export default function MarketplacePage() {
             onCategoryChange={setActiveCategory}
           />
           
-          <main className="flex-1">
+          <main className="flex-1 flex flex-col justify-between min-h-[400px]">
             {filteredProducts.length === 0 ? (
-              <div className="text-center py-12 border rounded-xl bg-card">
+              <div className="text-center py-12 border rounded-xl bg-card w-full">
                 <p className="text-muted-foreground">Nenhum produto corresponde aos filtros ou busca digitada.</p>
               </div>
             ) : (
-              <ProductGrid products={filteredProducts} />
+              <div className="space-y-6 w-full">
+                {/* Grid exibe apenas os 15 produtos fatiados da página atual */}
+                <ProductGrid products={currentProducts} />
+
+                {/* Componente de Paginação Visual */}
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-2 pt-4 border-t border-border/50">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                      disabled={currentPage === 1}
+                      className="rounded-xl h-9 w-9"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </Button>
+
+                    <div className="text-sm font-medium text-muted-foreground px-2">
+                      Página <span className="text-foreground font-semibold">{currentPage}</span> de <span className="text-foreground font-semibold">{totalPages}</span>
+                    </div>
+
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                      disabled={currentPage === totalPages}
+                      className="rounded-xl h-9 w-9"
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                )}
+              </div>
             )}
           </main>
         </div>
