@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="100%" height="100%">
+  <defs>
+    <style>
+      .title { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #1e293b; }
+      .subtitle { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; fill: #64748b; }
+      .box-title { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: bold; fill: #ffffff; }
+      .text { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; fill: #334155; }
+      .text-bold { font-weight: bold; }
+      .text-white { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; fill: #ffffff; }
+      .text-muted-light { fill: #f1f5f9; fill-opacity: 0.85; font-size: 11px; }
+      .text-muted { fill: #64748b; font-size: 11px; }
+      .layer-title { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #475569; }
+      .arrow-text { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #2563eb; }
+    </style>
+    
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#94a3b8" flood-opacity="0.25"/>
+    </filter>
+
+    <linearGradient id="grad-app" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#000000"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="grad-components" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="grad-hooks" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="grad-services" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="grad-api" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+
+  <text x="40" y="45" class="title">Entre Equipistas — Arquitetura de Fluxo do Front-end</text>
+  <text x="40" y="65" class="subtitle">Mapeamento de ciclo de vida das views, gerenciamento de estado, hooks e consumo da API REST</text>
+  
+  <line x1="40" y1="85" x2="960" y2="85" stroke="#e2e8f0" stroke-width="2"/>
+
+  <text x="40" y="125" class="layer-title">Camada de Rotas &amp; Páginas (Next.js App Router)</text>
+  <rect x="40" y="140" width="840" height="130" fill="#ffffff" rx="8" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+  
+  <g transform="translate(60, 160)">
+    <rect width="220" height="90" fill="url(#grad-app)" rx="6"/>
+    <text x="15" y="25" class="box-title">1. Roteamento (/app)</text>
+    <text x="15" y="48" class="text-white text-bold">/vender, /login, /admin</text>
+    <text x="15" y="65" class="text-muted-light">↳ layout.tsx (Providers globais)</text>
+    <text x="15" y="78" class="text-muted-light">↳ page.tsx (Views principais)</text>
+  </g>
+
+  <path d="M 280 205 L 330 205" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(340, 160)">
+    <rect width="220" height="90" fill="url(#grad-components)" rx="6"/>
+    <text x="15" y="25" class="box-title">2. UI Components</text>
+    <text x="15" y="48" class="text-white text-bold">product-grid.tsx, header.tsx</text>
+    <text x="15" y="65" class="text-muted-light">Renderiza catálogo e formulários</text>
+    <text x="15" y="78" class="text-muted-light">Usa elementos do Shadcn UI</text>
+  </g>
+  
+  <g transform="translate(440, 120)">
+    <rect width="110" height="30" fill="#f1f5f9" rx="4" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="10" y="20" class="text text-bold" style="font-size: 11px; fill: #475569;">@/components/ui</text>
+  </g>
+  <path d="M 495 150 L 495 160" fill="none" stroke="#cbd5e1" stroke-width="1"/>
+
+  <path d="M 560 205 L 610 205" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <text x="40" y="305" class="layer-title">Camada de Hooks &amp; Estados (React Context / Custom Hooks)</text>
+  <rect x="40" y="320" width="840" height="130" fill="#ffffff" rx="8" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+
+  <g transform="translate(620, 160)">
+    <rect width="240" height="90" fill="url(#grad-hooks)" rx="6"/>
+    <text x="15" y="25" class="box-title">3. Estado &amp; Regra Visual</text>
+    <text x="15" y="48" class="text-white text-bold">useAuth, use-toast, contexts/</text>
+    <text x="15" y="65" class="text-muted-light">Gerencia estados (usuário logado)</text>
+    <text x="15" y="78" class="text-muted-light">Dispara gatilhos pós-ações</text>
+  </g>
+
+  <g transform="translate(620, 340)">
+    <rect width="240" height="90" fill="url(#grad-services)" rx="6"/>
+    <text x="15" y="25" class="box-title">4. Camada de Services</text>
+    <text x="15" y="48" class="text-white text-bold">productsService, authService</text>
+    <text x="15" y="65" class="text-muted-light">Funções assíncronas isoladas</text>
+    <text x="15" y="78" class="text-muted-light">Mapeia respostas usando types/</text>
+  </g>
+
+  <path d="M 740 250 L 740 330" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-blue)"/>
+  <text x="750" y="295" class="arrow-text">Consome Services</text>
+
+  <text x="40" y="485" class="layer-title">Camada de Rede &amp; Cliente HTTP</text>
+  <rect x="40" y="500" width="840" height="130" fill="#ffffff" rx="8" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+
+  <g transform="translate(340, 520)">
+    <rect width="220" height="90" fill="url(#grad-api)" rx="6"/>
+    <text x="15" y="25" class="box-title">5. HTTP Client (api.ts)</text>
+    <text x="15" y="48" class="text-white text-bold">Axios Instance / Interceptors</text>
+    <text x="15" y="65" class="text-muted-light">Injeta Token JWT automaticamente</text>
+    <text x="15" y="78" class="text-muted-light">Lê NEXT_PUBLIC_BACK_URL</text>
+  </g>
+
+  <path d="M 450 520 L 450 385 L 610 385" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="460" y="400" class="arrow-text">Chama cliente configurado</text>
+
+  <g transform="translate(60, 520)">
+    <rect width="220" height="90" fill="#1e293b" rx="6"/>
+    <text x="45" y="35" class="box-title" fill="#3b82f6">API Back-end</text>
+    <text x="45" y="55" fill="#ffffff" class="text text-bold">Node.js / Express Server</text>
+    <text x="45" y="75" class="text-muted-light">Retorna JSON (De volta ao front)</text>
+    
+    <circle cx="25" cy="35" r="10" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    <path d="M 15 35 L 35 35 M 25 25 A 10 10 0 0 1 25 45" fill="none" stroke="#3b82f6" stroke-width="1"/>
+  </g>
+
+  <path d="M 340 565 L 290 565" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="292" y="555" class="text text-bold" style="font-size: 10px; fill: #64748b;">Request HTTP</text>
+
+  <g transform="translate(895, 275)">
+    <rect width="80" height="150" fill="#fef2f2" rx="6" stroke="#fca5a5" stroke-width="1"/>
+    <text x="40" y="30" text-anchor="middle" class="text text-bold" fill="#991b1b">useToast</text>
+    <text x="40" y="50" text-anchor="middle" class="text-muted" fill="#991b1b" style="font-size: 10px;">Captura erros</text>
+    <text x="40" y="65" text-anchor="middle" class="text-muted" fill="#991b1b" style="font-size: 10px;">da API e exibe</text>
+    <text x="40" y="80" text-anchor="middle" class="text-muted" fill="#991b1b" style="font-size: 10px;">alerta visual</text>
+    <path d="M 35 115 L 40 120 L 50 110" fill="none" stroke="#f87171" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <path d="M 860 205 L 895 290" fill="none" stroke="#f87171" stroke-width="1" stroke-dasharray="3"/>
+  <path d="M 560 565 L 935 425" fill="none" stroke="#f87171" stroke-width="1" stroke-dasharray="3"/>
+
+</svg>

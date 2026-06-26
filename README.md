@@ -1,5 +1,7 @@
 #  Marketplace Entre Equipistas (Front-end)
 
+![logo](readme/posterfront.png)
+
 ##  Introdução:
 
 Este repositório contém a interface web do **Marketplace Entre Equipistas**, uma plataforma privada desenvolvida para a comunidade de equipistas de um grupo religioso em Caruaru. O projeto foi desenvolvido utilizando **Next.js 14** com a arquitetura **App Router**, proporcionando uma experiência de navegação rápida, moderna e responsiva. Toda a aplicação é escrita em **TypeScript**, garantindo maior segurança, organização e escalabilidade durante o desenvolvimento.
@@ -80,6 +82,8 @@ A interface apresenta funcionalidades diferentes conforme o perfil do usuário a
 
 ##  Etapas do Projeto & Funcionalidades:
 
+![diagrama](readme//diagrama.svg)
+
 O front-end foi estruturado utilizando a arquitetura do **Next.js App Router**, organizando o código em módulos independentes e de fácil manutenção.
 
 ###  Módulo de Páginas e Rotas (`app`):
@@ -155,6 +159,10 @@ As interfaces representam exatamente as entidades existentes no banco de dados, 
 * melhor experiência com autocomplete;
 * redução de erros em tempo de execução;
 * maior facilidade de manutenção.
+
+## Visualização das Telas do Projeto:
+
+![visualizacao](readme/martplaceentreequpistavisual.gif)
 
 ## Como Executar o Projeto:
 
@@ -309,6 +317,23 @@ Agrupa funções utilitárias e configurações compartilhadas entre os módulos
 #### `public/`
 
 Armazena imagens, ícones, logos e demais arquivos estáticos utilizados pela interface.
+
+## Repositório do Backend:
+
+Para Conhecer o repositório do back-end do projeto, acesse o link abaixo.
+
+<div align="center">
+  <a href="https://github.com/micaellimaj/MarketPlace-Entre-Equipistas">
+    <table border="0" style="border: none;">
+      <tr>
+        <td align="center" style="background: #f8fafc; padding: 40px; border-radius: 12px; border: 1px solid #e2e8f0; width: 800px;">
+          <img src="readme/posterback.png" width="800" style="border-radius: 8px;" alt="Entre Equipistas Logo"><br><br>
+          <span style="font-family: sans-serif; font-size: 24px; font-weight: bold; color: #64748b; letter-spacing: 6px;">BACKEND</span>
+        </td>
+      </tr>
+    </table>
+  </a>
+</div>
 
 ## Conclusão:
 
