@@ -566,27 +566,34 @@ export default function AdminDashboardPage() {
        {/* Modal de Confirmação de Deleção Customizado */}
         {deleteConfirmation && (
           <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4 backdrop-blur-sm">
-            <div className="bg-card border border-destructive/30 rounded-xl shadow-xl w-full max-w-md p-6 animate-in fade-in zoom-in-95 duration-150 text-center">
-              <div className="mx-auto h-12 w-12 rounded-full bg-destructive/10 flex items-center justify-center mb-4">
-                <AlertTriangle className="h-6 w-6 text-destructive" />
+            <div className="bg-zinc-900 border border-red-500/30 rounded-xl shadow-xl w-full max-w-md p-6 animate-in fade-in zoom-in-95 duration-150 text-center">
+              <div className="mx-auto h-12 w-12 rounded-full bg-red-500/10 flex items-center justify-center mb-4">
+                <AlertTriangle className="h-6 w-6 text-red-500" />
               </div>
-              <h3 className="text-base font-bold text-foreground">Excluir Permanentemente?</h3>
-              <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                Tem certeza que deseja deletar o usuário <strong className="text-foreground">"{deleteConfirmation.nome}"</strong>? 
+              
+              {/* Título com cor sólida e visível (Branco/Cinza muito claro) */}
+              <h3 className="text-base font-bold text-zinc-100">
+                Excluir Permanentemente?
+              </h3>
+              
+              {/* Texto de apoio com cinza médio para bom contraste e destaque no nome em branco */}
+              <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                Tem certeza que deseja deletar o usuário <strong className="text-zinc-100">"{deleteConfirmation.nome}"</strong>? 
                 Esta ação é irreversível e removerá todos os produtos e endereços vinculados em cascata.
               </p>
+              
               <div className="flex gap-3 mt-6">
                 <button
                   type="button"
                   onClick={() => setDeleteConfirmation(null)}
-                  className="flex-1 px-4 py-2 text-xs font-semibold border border-input rounded-lg hover:bg-muted text-foreground transition-colors"
+                  className="flex-1 px-4 py-2 text-xs font-semibold border border-zinc-700 rounded-lg hover:bg-zinc-800 text-zinc-300 transition-colors"
                 >
                   Cancelar
                 </button>
                 <button
                   type="button"
                   onClick={handleConfirmDelete}
-                  className="flex-1 px-4 py-2 text-xs font-semibold bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-lg transition-colors"
+                  className="flex-1 px-4 py-2 text-xs font-semibold bg-red-600 text-white hover:bg-red-700 rounded-lg transition-colors shadow-lg shadow-red-900/20"
                 >
                   Sim, Deletar Conta
                 </button>
