@@ -571,14 +571,15 @@ export default function AdminDashboardPage() {
                 <AlertTriangle className="h-6 w-6 text-destructive" />
               </div>
               
-              {/* Força a cor principal do texto do sistema (escuro no light, claro no dark) */}
+              {/* Texto principal: 100% visível no tema claro (preto) e escuro (branco) */}
               <h3 className="text-base font-bold text-foreground">
                 Excluir Permanentemente?
               </h3>
               
-              {/* text-muted-foreground ajustado com leading para garantir leitura em qualquer fundo */}
-              <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                Tem certeza que deseja deletar o usuário <strong className="text-foreground font-extrabold">"{deleteConfirmation.nome}"</strong>? 
+              {/* Mudamos de text-muted-foreground para text-foreground/70 */}
+              {/* Isso garante contraste alto em qualquer tema, apenas suavizando a cor base */}
+              <p className="text-xs text-foreground/75 mt-2 leading-relaxed">
+                Tem certeza que deseja deletar o usuário <strong className="text-foreground font-black underline decoration-destructive/40">"{deleteConfirmation.nome}"</strong>? 
                 Esta ação é irreversível e removerá todos os produtos e endereços vinculados em cascata.
               </p>
               
@@ -586,7 +587,7 @@ export default function AdminDashboardPage() {
                 <button
                   type="button"
                   onClick={() => setDeleteConfirmation(null)}
-                  className="flex-1 px-4 py-2 text-xs font-semibold border border-input rounded-lg hover:bg-accent hover:text-accent-foreground text-foreground transition-colors"
+                  className="flex-1 px-4 py-2 text-xs font-semibold border border-input bg-background rounded-lg hover:bg-accent hover:text-accent-foreground text-foreground transition-colors"
                 >
                   Cancelar
                 </button>
